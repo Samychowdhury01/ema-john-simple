@@ -1,0 +1,4 @@
+.hover-effect :hover{
+    color: rgb(247, 186, 72);
+    transform: scale(110%);
+}

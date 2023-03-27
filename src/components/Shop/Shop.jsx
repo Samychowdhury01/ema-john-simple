@@ -25,6 +25,9 @@ const Shop = () => {
   console.log(cart);
   return (
     <div className="md:grid md:grid-cols-12">
+
+      {/* Products section */}
+
       <div className="md:col-span-9 w-full mt-16 p-10">
         <div className="grid md:grid-cols-3 gap-5">
           {products.slice(0, load ? 75 : 12).map((product) => (
@@ -42,10 +45,16 @@ const Shop = () => {
         )}
       </div>
 
-      <div className="bg-secondary bg-opacity-50 md:col-span-3 w-full">
-        <h2 className="text-2xl text-center underline font-bold">Order Summary</h2>
-        <div className="px-10 mt-8">
-          <p><span className="font-semibold">Selected Items:</span> {cart.length}</p>
+      {/* cart Section */}
+
+      <div className="md:col-span-3 w-full">
+        <h2 className="text-2xl text-center underline font-bold mt-10">
+          Order Summary
+        </h2>
+        <div className="px-10 mt-8 text-center">
+          <p>
+            <span className="font-semibold">Selected Items:</span> {cart.length}
+          </p>
         </div>
       </div>
     </div>
