@@ -4,7 +4,7 @@ import logo from "../../images/Logo.svg";
 const Header = () => {
   return (
     <>
-      <div className="navbar bg-primary text-white px-5">
+      <div className="md:navbar bg-primary text-white px-5">
         <div className="flex-1">
           <a className="btn btn-ghost normal-case text-xl">
             <img src={logo} alt="" />
