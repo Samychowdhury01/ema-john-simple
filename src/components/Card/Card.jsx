@@ -22,7 +22,7 @@ const Card = (props) => {
           </p>
           <div className="card-actions justify-center">
             <button
-              className="btn btn-primary hover:scale-110 hover:bg-orange-400 border-0 text-white w-full"
+              className="btn btn-primary hover:bg-orange-400 border-0 text-white w-full"
               onClick={() => addToCart(props.product)}
             >
               Add to Cart

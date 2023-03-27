@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
+import Cart from "../Cart/Cart";
 
 const Shop = () => {
   const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ const Shop = () => {
     const newCart = [...cart, product];
     setCart(newCart);
   };
-  console.log(cart);
+
   return (
     <div className="md:grid md:grid-cols-12">
 
@@ -47,15 +48,8 @@ const Shop = () => {
 
       {/* cart Section */}
 
-      <div className="md:col-span-3 w-full">
-        <h2 className="text-2xl text-center underline font-bold mt-10">
-          Order Summary
-        </h2>
-        <div className="px-10 mt-8 text-center">
-          <p>
-            <span className="font-semibold">Selected Items:</span> {cart.length}
-          </p>
-        </div>
+      <div className="bg-secondary bg-opacity-40 md:col-span-3 w-full">
+       <Cart cart={cart}></Cart>
       </div>
     </div>
   );
