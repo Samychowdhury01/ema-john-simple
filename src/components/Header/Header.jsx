@@ -1,6 +1,8 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../../images/Logo.svg";
-import "./Header.css"
+import ActiveLink from "../ActiveLink/ActiveLink";
+import "./Header.css";
 
 const Header = () => {
   return (
@@ -29,41 +31,40 @@ const Header = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-primary rounded-box w-52"
             >
               <li className="hover-effect">
-                <a>Order</a>
+                <ActiveLink to="/">Shop</ActiveLink>
               </li>
-              
               <li className="hover-effect">
-                <a>Order Review</a>
+                <ActiveLink to="/orders">Orders</ActiveLink>
               </li>
-
               <li className="hover-effect">
-                <a>Manage Inventory</a>
+                <ActiveLink to="/inventory">Inventory</ActiveLink>
               </li>
-  
               <li className="hover-effect">
-                <a>Login</a>
+                <ActiveLink to="/login">Login</ActiveLink>
               </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl"><img src={logo} alt="" /></a>
+          <a className="btn btn-ghost normal-case text-xl">
+            <img src={logo} alt="" />
+          </a>
         </div>
         <div className="navbar-end hidden lg:flex">
-         <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1">
             <li className="hover-effect">
-              <a>Order</a>
-            </li>
-            <li className="hover-effect"> 
-              <a>Order Review</a>
+              <ActiveLink to="/">Shop</ActiveLink>
             </li>
             <li className="hover-effect">
-              <a>Manage Inventory</a>
+              <ActiveLink to="/orders">Orders</ActiveLink>
             </li>
             <li className="hover-effect">
-              <a>Login</a>
+              <ActiveLink to="/inventory">Inventory</ActiveLink>
+            </li>
+            <li className="hover-effect">
+              <ActiveLink to="/login">Login</ActiveLink>
             </li>
           </ul>
         </div>
-      </div> 
+      </div>
     </>
   );
 };

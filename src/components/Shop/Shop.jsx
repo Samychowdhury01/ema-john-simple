@@ -16,6 +16,7 @@ const Shop = () => {
 
   useEffect(() => {
     const storedCart = getShoppingCart();
+    const savedCart = [];
 
     // step 1: get id
     for (const id in storedCart) {
@@ -26,10 +27,10 @@ const Shop = () => {
         // step 3: get quantity of the product
         const quantity = storedCart[id];
         addedProduct.quantity = quantity;
+        savedCart.push(addedProduct);
       }
-   
     }
-    
+    setCart(savedCart);
   }, [products]);
 
   // show all button function
@@ -69,22 +70,15 @@ const Shop = () => {
         )}
       </div>
 
-      {/* <span onClick={showAll}>
-            <Button></Button>
-          </span> */}
-
       {/* cart Section */}
 
-      <div className="bg-secondary bg-opacity-40 md:col-span-3 w-full">
-        <Cart cart={cart}></Cart>
+      <div className="md:col-span-3 w-full">
+        <div className="sticky top-0 border-b-2 border-black">
+          <Cart cart={cart}></Cart>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Shop;
-
-/*    if (addedProduct) {
-        const quantity = storedCart[id];
-        addedProduct.quantity = quantity;
-      } */
