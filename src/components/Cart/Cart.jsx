@@ -34,7 +34,7 @@ const Cart = ({ cart }) => {
         <p className="mb-3">
           <span className="font-semibold">Tax:</span> ${tax.toFixed(2)}
         </p>
-        <h6 className="text-xl">
+        <h6 className="text-xl mb-5">
           <span className="font-semibold">Grand Total</span>: $
           {grandTotal.toFixed(2)}
         </h6>
