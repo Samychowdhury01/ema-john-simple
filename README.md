@@ -18,5 +18,5 @@
 -Blog page contains 4 questions and their answers.
 
 ### Live Link
-___
+
 Hosted in Netlify -> [HireGenius](https://hire-genius.netlify.app/)
