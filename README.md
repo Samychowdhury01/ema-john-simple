@@ -17,6 +17,6 @@
 **5. Blog Page:**
 -Blog page contains 4 questions and their answers.
 
-### Live Link
+## Live Link
 
 Hosted in Netlify -> [HireGenius](https://hire-genius.netlify.app/)
