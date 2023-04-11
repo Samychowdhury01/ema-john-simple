@@ -1,5 +1,11 @@
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
-import { addToDb, getShoppingCart } from "../../utilities/fakedb";
+import {
+  addToDb,
+  deleteShoppingCart,
+  getShoppingCart,
+} from "../../utilities/fakedb";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import Cart from "../Cart/Cart";
@@ -47,6 +53,11 @@ const Shop = () => {
     addToDb(product.id);
   };
 
+  const handleClearCart = () => {
+    setCart([]);
+    deleteShoppingCart();
+  };
+
   return (
     <div className="md:grid md:grid-cols-12">
       {/* Products section */}
@@ -74,7 +85,15 @@ const Shop = () => {
 
       <div className="md:col-span-3 w-full">
         <div className="sticky top-0 border-b-2 border-black">
-          <Cart cart={cart}></Cart>
+          <Cart cart={cart} handleClearCart={handleClearCart}>
+            <button className="flex w-full justify-between items-center my-5 bg-yellow-500 p-4 rounded-lg text-white">
+              <span className="text-lg font-semibold">Proceed Checkout</span>
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                className="text-2xl text-white"
+              ></FontAwesomeIcon>
+            </button>
+          </Cart>
         </div>
       </div>
     </div>

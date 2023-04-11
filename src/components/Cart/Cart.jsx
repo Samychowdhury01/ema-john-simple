@@ -1,6 +1,8 @@
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
-const Cart = ({ cart }) => {
+const Cart = ({ cart, children, handleClearCart }) => {
   let totalPrice = 0;
   let totalShipping = 0;
   let quantity = 0;
@@ -34,10 +36,22 @@ const Cart = ({ cart }) => {
         <p className="mb-3">
           <span className="font-semibold">Tax:</span> ${tax.toFixed(2)}
         </p>
-        <h6 className="text-xl mb-5">
+        <h6 className="text-xl mb-3">
           <span className="font-semibold">Grand Total</span>: $
           {grandTotal.toFixed(2)}
         </h6>
+
+        <button
+          onClick={handleClearCart}
+          className="flex w-full justify-between items-center my-5 bg-red-600 p-4 rounded-lg text-white"
+        >
+          <span className="text-lg font-semibold">Clear Cart</span>
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="text-2xl text-white"
+          ></FontAwesomeIcon>
+        </button>
+        {children}
       </div>
     </div>
   );

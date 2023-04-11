@@ -1,6 +1,8 @@
+import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import { removeFromDb } from "../../utilities/fakedb";
+import { deleteShoppingCart, removeFromDb } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import ReviewItem from "../ReviewItem/ReviewItem";
 
@@ -12,6 +14,11 @@ const Orders = () => {
     const remaining = cart.filter((pd) => pd.id !== id);
     setCart(remaining);
     removeFromDb(id);
+  };
+
+  const handleClearCart = () => {
+    setCart([]);
+    deleteShoppingCart();
   };
 
   return (
@@ -32,7 +39,15 @@ const Orders = () => {
 
       <div className="md:col-span-4 w-full">
         <div className="border-b-2 border-black">
-          <Cart cart={cart}></Cart>
+          <Cart cart={cart} handleClearCart={handleClearCart}>
+            <button className="flex w-full justify-between items-center my-5 bg-yellow-500 p-4 rounded-lg text-white">
+              <span className="text-lg font-semibold">Proceed Checkout</span>
+              <FontAwesomeIcon
+                icon={faCreditCard}
+                className="text-2xl text-white"
+              ></FontAwesomeIcon>
+            </button>
+          </Cart>
         </div>
       </div>
     </div>
