@@ -42,11 +42,14 @@ const Header = () => {
               <li className="hover-effect">
                 <ActiveLink to="/login">Login</ActiveLink>
               </li>
+              <li className="hover-effect">
+                <ActiveLink to="/signup">Sign Up</ActiveLink>
+              </li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">
+          <div className="btn btn-ghost normal-case text-xl">
             <img src={logo} alt="" />
-          </a>
+          </div>
         </div>
         <div className="navbar-end hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
@@ -62,6 +65,9 @@ const Header = () => {
             <li className="hover-effect">
               <ActiveLink to="/login">Login</ActiveLink>
             </li>
+            <li className="hover-effect">
+                <ActiveLink to="/signup">Sign Up</ActiveLink>
+              </li>
           </ul>
         </div>
       </div>
