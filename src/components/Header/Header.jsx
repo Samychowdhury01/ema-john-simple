@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
 import { NavLink } from "react-router-dom";
 import logo from "../../images/Logo.svg";
+import { AuthContext } from "../../Providers/AuthProvider";
 import ActiveLink from "../ActiveLink/ActiveLink";
 import "./Header.css";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+
+// handler for Logout
+  const handleLogOut = () =>{
+    logOut()
+    .then((result) =>{
+      toast.success("Logout successful")
+    })
+    .catch(error =>{
+      toast.error(`${error.message}`)
+    })
+  }
   return (
     <>
       <div className="navbar bg-primary text-white">
-        <div className="navbar-start">
+        <div className="navbar-start w-1/3">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
               <svg
@@ -51,7 +65,8 @@ const Header = () => {
             <img src={logo} alt="" />
           </div>
         </div>
-        <div className="navbar-end hidden lg:flex">
+
+        <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li className="hover-effect">
               <ActiveLink to="/">Shop</ActiveLink>
@@ -66,9 +81,23 @@ const Header = () => {
               <ActiveLink to="/login">Login</ActiveLink>
             </li>
             <li className="hover-effect">
-                <ActiveLink to="/signup">Sign Up</ActiveLink>
-              </li>
+              <ActiveLink to="/signup">Sign Up</ActiveLink>
+            </li>
           </ul>
+        </div>
+
+        <div
+        onClick={handleLogOut}
+         className="navbar-end"
+         >
+          {user && (
+            <>
+              <p className="mr-5">{user.email}</p>
+              <button className="btn bg-white text-black normal-case hover:bg-red-500 hover:text-white ">
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

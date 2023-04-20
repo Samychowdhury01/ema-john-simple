@@ -1,7 +1,7 @@
 import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { deleteShoppingCart, removeFromDb } from "../../utilities/fakedb";
 import Cart from "../Cart/Cart";
 import ReviewItem from "../ReviewItem/ReviewItem";
@@ -40,6 +40,7 @@ const Orders = () => {
       <div className="md:col-span-4 w-full">
         <div className="border-b-2 border-black">
           <Cart cart={cart} handleClearCart={handleClearCart}>
+            <Link to="/checkout">
             <button className="flex w-full justify-between items-center my-5 bg-yellow-500 p-4 rounded-lg text-white">
               <span className="text-lg font-semibold">Proceed Checkout</span>
               <FontAwesomeIcon
@@ -47,6 +48,7 @@ const Orders = () => {
                 className="text-2xl text-white"
               ></FontAwesomeIcon>
             </button>
+            </Link>
           </Cart>
         </div>
       </div>

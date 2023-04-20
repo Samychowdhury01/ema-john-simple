@@ -10,7 +10,6 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-
   const handleLogin = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -26,8 +25,8 @@ const Login = () => {
         toast.success("Login successful");
         event.target.reset();
       })
-      .catch((error) => { 
-       error && setErrorMessage(error.message);
+      .catch((error) => {
+        setErrorMessage(error.message);
       });
   };
 

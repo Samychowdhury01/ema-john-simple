@@ -70,7 +70,7 @@ const SignUp = () => {
       toast.success("please check your email to verify your email")
     })
     .then((error) =>{
-     error && toast.error(`${error.message}`)
+    toast.error(`${error.message}`)
     })
   }
 

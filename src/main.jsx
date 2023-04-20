@@ -15,6 +15,8 @@ import cartProductLoader from './components/cartProductLoader';
 import SignUp from './components/SignUp/SignUp';
 import AuthProvider from './Providers/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
+import Checkout from './components/Checkout/Checkout';
+import PrivateRoute from './routes/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "inventory",
         element: <Inventory></Inventory>
+      },
+      {
+        path: "checkout",
+        element: <PrivateRoute><Checkout/></PrivateRoute>
       },
       {
         path: "login",
