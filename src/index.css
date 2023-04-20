@@ -22,3 +22,12 @@
     border-bottom: 1px solid #95A0A7;
 }
 
+@layer components {
+    .error {
+      @apply text-red-500 text-sm m-0;
+    }
+    .error::before {
+      content: "⚠ ";
+    }
+  }
+

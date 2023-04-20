@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import googleImage from "../../images/google.png";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 const Login = () => {
+  const {} = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="min-h-screen">
       <div className="hero-content relative">
@@ -21,12 +25,22 @@ const Login = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
+              <div
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute top-12 right-3"
+              >
+                {showPassword ? (
+                  <EyeIcon className="h-6 w-6" />
+                ) : (
+                  <EyeSlashIcon className="h-6 w-6" />
+                )}
+              </div>
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
                 className="input input-bordered"

@@ -1,50 +1,66 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import googleImage from "../../images/google.png";
+import { AuthContext } from "../../Providers/AuthProvider";
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 const SignUp = () => {
-    const [errorMessage, setErrorMessage] =useState('')
-
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false)
+  const { signInWithGoogle, setUser, signIn } = useContext(AuthContext);
 
   const handleRegister = (event) => {
-
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirm.value;
 
-    setErrorMessage('')
+    setErrorMessage("");
 
     // password validation
-    if(password !== confirmPassword){
-        setErrorMessage("password didn't match")
-        return
-    }
-    else if(!/(?=.*[A-Z])/.test(password)){
-        setErrorMessage("add at least one UPPERCASE")
-        return
-    }
-    else if(!/(?=.*[!@#$&*])/.test(password)){
-        setErrorMessage("add at least one special character")
-        return
-    }
-    else if(!/(?=.*[0-9].*[0-9])/.test(password)){
-        setErrorMessage("add at least two Number")
-        return
-    }
-    else if(password.length > 6){
-        setErrorMessage("your password should be 6 character or longer")
-        return
-    }
-    else if(/(?=.*[a-z].*[a-z].*[a-z])/){
-        setErrorMessage("your password must contains 3 small letter")
-        return
+    if (password !== confirmPassword) {
+      setErrorMessage("password didn't match");
+      return;
+    } else if (!/(?=.*[A-Z])/.test(password)) {
+      setErrorMessage("add at least one UPPERCASE");
+      return;
+    } else if (!/(?=.*[!@#$&*])/.test(password)) {
+      setErrorMessage("add at least one special character");
+      return;
+    } else if (!/(?=.*[0-9].*[0-9])/.test(password)) {
+      setErrorMessage("add at least two Number");
+      return;
+    } else if (password.length > 6) {
+      setErrorMessage("your password should be 6 character or longer");
+      return;
     }
 
-
-    
+    // handle register new user with email and password
+    signIn(email, password)
+    .then((result) =>{
+      const newUser = result.user
+    })
+    .catch((error)=> {
+      toast.error("Something went wrong. try again.")
+      console.log(error.message)
+    })
   };
+
+  // handler for google sign-in
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const loggedUser = result.user;
+        setUser(loggedUser);
+
+        console.log(loggedUser);
+      })
+      .catch((error) => console.log(error.message));
+  };
+
+
 
   return (
     <div className="min-h-screen">
@@ -64,12 +80,20 @@ const SignUp = () => {
                 required
               />
             </div>
-            <div className="form-control">
+            <div className="form-control relative">
+              <div
+              onClick={()=> setShowPassword(!showPassword)}
+              className="absolute top-12 right-3"
+              >
+                {
+                  showPassword ? <EyeIcon className="h-6 w-6" /> : <EyeSlashIcon className="h-6 w-6" />
+                }
+              </div>
               <label className="label">
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="password"
                 className="input input-bordered"
@@ -89,7 +113,13 @@ const SignUp = () => {
               />
             </div>
             {/* for showing the error */}
-            <p className="mt-5 text-red-500 text-center">{errorMessage}</p>
+            <p
+              className={`mt-5 text-red-500 text-center ${
+                errorMessage ? "error" : ""
+              }`}
+            >
+              {errorMessage}
+            </p>
 
             <div className="form-control mt-6">
               <button className="btn btn-primary">Sign Up</button>
@@ -104,7 +134,10 @@ const SignUp = () => {
               <div className="line"></div>
               <span className="bg-white absolute px-5 py-2">or</span>
             </div>
-            <div className="flex items-center justify-center gap-2 mt-8 py-3 border-2 rounded-lg cursor-pointer">
+            <div
+              onClick={handleGoogleSignIn}
+              className="flex items-center justify-center gap-2 mt-8 py-3 border-2 rounded-lg cursor-pointer"
+            >
               <img
                 src={googleImage}
                 alt="sign-in with google"
