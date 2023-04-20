@@ -2,16 +2,40 @@ import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import googleImage from "../../images/google.png";
 import { AuthContext } from "../../Providers/AuthProvider";
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
-  const {} = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    setErrorMessage("");
+
+    // sign-in existing user
+    signIn(email, password)
+      .then((result) => {
+        const loggedUser = result.user;
+        toast.success("Login successful");
+        event.target.reset();
+      })
+      .catch((error) => { 
+       error && setErrorMessage(error.message);
+      });
+  };
+
   return (
     <div className="min-h-screen">
       <div className="hero-content relative">
         <div className="card rounded-lg md:my-44 form-style drop-shadow-2xl bg-base-100">
-          <form className="card-body">
+          <form onSubmit={handleLogin} className="card-body">
             <h1 className="text-center text-4xl font-light mb-7">Login</h1>
             <div className="form-control">
               <label className="label">
@@ -47,6 +71,14 @@ const Login = () => {
                 required
               />
             </div>
+            {/* for showing the error */}
+            <p
+              className={`mt-5 text-red-500 text-center ${
+                errorMessage ? "error" : ""
+              }`}
+            >
+              {errorMessage}
+            </p>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
             </div>

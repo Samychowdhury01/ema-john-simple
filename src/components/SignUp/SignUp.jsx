@@ -8,7 +8,7 @@ import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false)
-  const { signInWithGoogle, setUser, signIn } = useContext(AuthContext);
+  const { signInWithGoogle, createUser, validateUser } = useContext(AuthContext);
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -32,20 +32,25 @@ const SignUp = () => {
     } else if (!/(?=.*[0-9].*[0-9])/.test(password)) {
       setErrorMessage("add at least two Number");
       return;
-    } else if (password.length > 6) {
+    } else if (password.length < 6) {
       setErrorMessage("your password should be 6 character or longer");
       return;
     }
 
     // handle register new user with email and password
-    signIn(email, password)
+    createUser(email, password)
     .then((result) =>{
       const newUser = result.user
+      toast.success('you have successfully created an account');
+      handleValidation()
+      event.target.reset()
     })
+
     .catch((error)=> {
       toast.error("Something went wrong. try again.")
       console.log(error.message)
     })
+
   };
 
   // handler for google sign-in
@@ -53,14 +58,21 @@ const SignUp = () => {
     signInWithGoogle()
       .then((result) => {
         const loggedUser = result.user;
-        setUser(loggedUser);
-
         console.log(loggedUser);
       })
       .catch((error) => console.log(error.message));
   };
 
-
+  // handle validation
+  const handleValidation = () =>{
+    validateUser()
+    .then((result) =>{
+      toast.success("please check your email to verify your email")
+    })
+    .then((error) =>{
+     error && toast.error(`${error.message}`)
+    })
+  }
 
   return (
     <div className="min-h-screen">
@@ -125,7 +137,7 @@ const SignUp = () => {
               <button className="btn btn-primary">Sign Up</button>
             </div>
             <label className="text-center mt-2">
-              <Link to="/signup" className="label-text-alt link link-hover">
+              <Link to="/login" className="label-text-alt link link-hover">
                 Already have an account?
                 <span className="text-orange-400"> Login</span>
               </Link>
