@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import googleImage from "../../images/google.png";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid'
 
 const SignUp = () => {
+  const location = useLocation()
+  console.log(location)
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false)
   const { signInWithGoogle, createUser, validateUser } = useContext(AuthContext);
@@ -95,7 +97,7 @@ const SignUp = () => {
             <div className="form-control relative">
               <div
               onClick={()=> setShowPassword(!showPassword)}
-              className="absolute top-12 right-3"
+              className="absolute top-12 right-3 cursor-pointer"
               >
                 {
                   showPassword ? <EyeIcon className="h-6 w-6" /> : <EyeSlashIcon className="h-6 w-6" />

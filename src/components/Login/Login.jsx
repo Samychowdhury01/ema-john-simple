@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import googleImage from "../../images/google.png";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
@@ -9,6 +9,10 @@ const Login = () => {
   const { signIn } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigate = useNavigate()
+  const location = useLocation()
+  console.log(location)
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -24,6 +28,7 @@ const Login = () => {
         const loggedUser = result.user;
         toast.success("Login successful");
         event.target.reset();
+        navigate(location?.state?.pathname || "/" , {replace: true});
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -51,7 +56,7 @@ const Login = () => {
             <div className="form-control relative">
               <div
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute top-12 right-3"
+                className="absolute top-12 right-3 cursor-pointer"
               >
                 {showPassword ? (
                   <EyeIcon className="h-6 w-6" />
@@ -82,7 +87,7 @@ const Login = () => {
               <button className="btn btn-primary">Login</button>
             </div>
             <label className="text-center mt-2">
-              <Link to="/signup" className="label-text-alt link link-hover">
+              <Link to="/signup" state={location.state} className="label-text-alt link link-hover">
                 New to Ema-john?
                 <span className="text-orange-400"> Create New Account</span>
               </Link>

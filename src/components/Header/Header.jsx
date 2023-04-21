@@ -93,7 +93,7 @@ const Header = () => {
           {user && (
             <>
               <p className="mr-5">{user.email}</p>
-              <button className="btn bg-white text-black normal-case hover:bg-red-500 hover:text-white ">
+              <button className="btn btn-sm bg-white text-black normal-case hover:bg-red-500 hover:text-white ">
                 Logout
               </button>
             </>
